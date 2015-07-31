@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "/org/apache/log4j/xmllog4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+
+    <!-- Root日志记录器配置，适配框架及其它开源项目的日志内容输出 -->
+    <appender name="RootFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${LOGS_DIR}/logger-root.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] [%l] %x - %m%n" />
+        </layout>
+    </appender>
+    <!-- 具体业务日志记录器配置 -->
+    <appender name="FileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${LOGS_DIR}/logger-default.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+    <appender name="TestFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${LOGS_DIR}/logger-test.log" />
+        <param name="Append" value="true" />
+        <param name="DatePattern" value="'.'yyMMddHH" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n" />
+        </layout>
+    </appender>
+    <!-- 日志记录器定义，可定义多个记录器 -->
+    <logger name="default">
+        <level value="debug" />
+        <appender-ref ref="FileAppender" />
+    </logger>
+    <logger name="test">
+        <level value="debug" />
+        <appender-ref ref="TestFileAppender" />
+    </logger>
+    <!-- 根logger的设置-->
+    <root>
+        <priority value ="debug"/>
+        <appender-ref ref="RootFileAppender"/>
+    </root>
+
+</log4j:configuration>
